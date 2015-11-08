@@ -10,9 +10,6 @@ Created on Sun Nov  8 07:53:23 2015
 # import modules
 import pyb
 
-# initialize Constants
-THRESH = 6
-
 # setup USR interupt switch to toggle LED #2
 
 switch = pyb.Switch()
@@ -21,21 +18,25 @@ def light2():
     pyb.LED(2).toggle()
 switch.callback(light2)
 
-# get acceleration and make level
+# TODO - setup timer to run at ~5HZ and measure photo diode on that timer
 
-accel = pyb.Accel()
-lightX = pyb.LED(1)
-lightY = pyb.LED(4)
 
-while True:
-    if abs(accel.x()) > THRESH:
-        lightX.on()
-    else:
-        lightX.off()
-    if abs(accel.y()) > THRESH:
-        lightY.on()
-    else:
-        lightY.off()
-    
-    pyb.delay(100)
+# setup ADC on pin 12 
+pin_photo1_X12 = pyb.Pin.board.X12
+adc_photo1 = pyb.ADC(pin_photo1_X12)
+
+# read + print value from photo 1
+val_photo1 = adc_photo1.read()
+print(val_photo1)
+
+# print if it's bright or not
+if val_photo1 > 1500:
+    print("It is getting hot in here!")
+else:
+    print("Brrrrrr, it is cold as in here")
+
+
+
+
+
 
