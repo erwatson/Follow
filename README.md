@@ -2,9 +2,11 @@
 following car micropython pyboard project
 
 Goal
+
 Improve my hardware and hackery skills while having some fun and understanding more about self driving cars and robotics. 
 
 Description
+
 Car A: 
 Light sensing diodes to find direction toward brightest light
 Master uses serial transmission to tell Car B what motor control it is doing currently and sends signal wirelessly
@@ -14,6 +16,7 @@ Slave in serial transmission to listen to Car A and learn and store what Car A m
 Pyboard, battery, chassis
 
 Simple project to start
+
 Use two pyboards to communicate with each other via UART, I2C, or SPI - something that can be moved to serial wireless communication without too much work later.
 
 Have input from light sensing diode into one board, do some math and transmit to other board.
