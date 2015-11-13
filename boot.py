@@ -8,18 +8,20 @@
 
 import pyb
 
-pyb.LED(3).on()                 # indicate we are waiting for switch press
-pyb.delay(2000)                 # wait for user to maybe press the switch
-switch = pyb.Switch()()   # sample the switch at end of delay
-pyb.LED(3).off()                # indicate that we finished waiting for the switch
+orange = pyb.LED(3)         # create orange LED object
+orange.on()                 # indicate we are waiting for switch press
+pyb.delay(2000)             # wait for user to maybe press the switch
+switch = pyb.Switch()       # create switch object
+switch_val = switch()       # sample the switch at end of delay
+orange.off()                # indicate that we finished waiting for the switch
+blue = pyb.LED(4)           # create blue LED object
+blue.on()                   # indicate that we are selecting the mode
 
-pyb.LED(4).on()                 # indicate that we are selecting the mode
-
-if switch:
+if switch_val:
     pyb.usb_mode('CDC+MSC')
     pyb.main('dataread.py')           # if switch was pressed, run this
 else:
     pyb.usb_mode('CDC+HID')
     pyb.main('follow.py')           # if switch wasn't pressed, run this
 
-pyb.LED(4).off()                # indicate that we finished selecting the mode
+blue.off()                # indicate that we finished selecting the mode

@@ -3,5 +3,5 @@
 import pyb
 
 # turn on red light
-red = pyb.LED(1)
-red.on()
+red = pyb.LED(1)        # create red LED object
+red.on()                # turn on the red light!
