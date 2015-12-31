@@ -141,7 +141,7 @@ MAX_HEADING_CHANGE = math.radians(20) 	# radians / sec max change in body coordi
 
 # initialize car A object
 A_INITIAL_STATE = [0, 0, 0, CONSTANT_VELOCITY]		# car A starts at the origin moving at constant speed +Y
-a = Leader("car_a", CONSTANT_VELOCITY, MAX_HEADING_CHANGE, A_INITIAL_STATE, N_STEPS, TIME_STEP) 
+a = Leader("Alfred", CONSTANT_VELOCITY, MAX_HEADING_CHANGE, A_INITIAL_STATE, N_STEPS, TIME_STEP) 
 
 # initialize car B object
 FOLLOW_TIME = 1  # time car B follows behind car A - seconds
@@ -149,7 +149,7 @@ FOLLOW_DISTANCE = CONSTANT_VELOCITY * FOLLOW_TIME
 FOLLOW_STEPS = int(round(FOLLOW_TIME / TIME_STEP)) # simulation steps follower is behind
 INITIAL_CROSS_TRACK_SEPARATION = 0.1    # offset follower and leader in initial X distance
 B_INITIAL_STATE = [INITIAL_CROSS_TRACK_SEPARATION, -FOLLOW_DISTANCE, 0, CONSTANT_VELOCITY]		# car A starts at the origin moving at constant speed +Y
-b = Follower("car_b", CONSTANT_VELOCITY, MAX_HEADING_CHANGE, B_INITIAL_STATE, N_STEPS, TIME_STEP) 
+b = Follower("Bert", CONSTANT_VELOCITY, MAX_HEADING_CHANGE, B_INITIAL_STATE, N_STEPS, TIME_STEP) 
 
 
 BRIGHT_LIGHT = np.array([4., -1.])			# bright light fixed position in inertial - navigation goal is to get there!	
@@ -198,8 +198,6 @@ plt.xlabel('time [s]')
 plt.ylabel('velocity [m/s]')
 plt.legend(frameon=False, loc='lower left')
 
-plt.show()
-
 # 2 plot position in X vs Y
 plt.figure(figsize=(9, 6), dpi=100)   
 
@@ -217,8 +215,6 @@ plt.ylabel('Y [m]')
 
 plt.axis('equal')
 
-plt.show()
-
 # 3 plot control 
 plt.figure(figsize=(8, 6), dpi=100)   
 
@@ -231,4 +227,6 @@ plt.axhline(-1, label="right", color='r')
 plt.xlabel('time [s]')
 plt.ylabel('Turn Control')
 plt.legend(frameon=False, loc='center right')
+
 plt.show()
+
