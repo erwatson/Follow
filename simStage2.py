@@ -74,12 +74,12 @@ class Vehicle(object):
         """Determine next state in time step via next control velocity and 
         integrating for position"""
         # implement bang bang control via cross track velocity (proportional to wheel turning motor voltage)
-        a_velocity_old_unit = unit(self.state[step-1, 2:4])	# inertial velocity unit vector from previous time step
+        velocity_old_unit = unit(self.state[step-1, 2:4])	# inertial velocity unit vector from previous time step
         if  self.turn_control[step] == 0: # no turn commanded
-            a_velocity_old = self.CONSTANT_VELOCITY * a_velocity_old_unit
+            velocity_old = self.CONSTANT_VELOCITY * velocity_old_unit
         else:
-            a_velocity_old = self.CONTROL_ALONG_TRACK_VELOCITY * a_velocity_old_unit			# “slow down to turn”
-        self.state[step, 2:4] = a_velocity_old + (self.turn_control[step] * np.array([-a_velocity_old_unit[1], a_velocity_old_unit[0]]) * self.CONTROL_CROSS_TRACK_VELOCITY)
+            velocity_old = self.CONTROL_ALONG_TRACK_VELOCITY * velocity_old_unit			# “slow down to turn”
+        self.state[step, 2:4] = velocity_old + (self.turn_control[step] * np.array([-velocity_old_unit[1], velocity_old_unit[0]]) * self.CONTROL_CROSS_TRACK_VELOCITY)
         
         # integrate to determine inertial position
         self.state[step, 0:2] = self.state[step - 1, 0:2] + self.state[i, 2:4] * TIME_STEP
@@ -104,8 +104,8 @@ class Leader(Vehicle):
     def control_direction(self, bright_light, step):
         """Determines if brighter light is to the left or right and fills in the
         sensor_reading array"""
-        a_to_bright_light = bright_light - self.state[step-1, 0:2]	# vector from car A to bright light in inertial
-        sign_of_heading_angle_to_bright_light = self.state[step-1, 2] * a_to_bright_light[1] - self.state[step-1, 3] * a_to_bright_light[0]   # "cross product" to determine sign of angle between heading and brihgt light in body
+        car_to_bright_light = bright_light - self.state[step-1, 0:2]	# vector from car A to bright light in inertial
+        sign_of_heading_angle_to_bright_light = self.state[step-1, 2] * car_to_bright_light[1] - self.state[step-1, 3] * car_to_bright_light[0]   # "cross product" to determine sign of angle between heading and brihgt light in body
         if sign_of_heading_angle_to_bright_light >= 0:
             self.turn_control[step] = 1   # bright light is left
         else:

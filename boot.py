@@ -22,6 +22,6 @@ if switch_val:
     pyb.main('dataread.py')           # if switch was pressed, run this
 else:
     pyb.usb_mode('CDC+HID')
-    pyb.main('follow.py')           # if switch wasn't pressed, run this
+    pyb.main('pitlStage1.py')           # if switch wasn't pressed, run this
 
 blue.off()                # indicate that we finished selecting the mode
